@@ -70,10 +70,16 @@ namespace GameDevTV.Inventories.Editor
         {
             if (!selected)
             {
-                EditorGUILayout.HelpBox("No Dialogue Selected", MessageType.Error);
+                EditorGUILayout.HelpBox("No InventoryItem Selected", MessageType.Error);
                 return;
             }
             EditorGUILayout.HelpBox($"{selected.name}/{selected.GetDisplayName()}", MessageType.Info);
+            selected.SetItemID(EditorGUILayout.TextField("ItemID (clear to reset", selected.GetItemID()));
+            selected.SetDisplayName(EditorGUILayout.TextField("Display name", selected.GetDisplayName()));
+            selected.SetDescription(EditorGUILayout.TextField("Description", selected.GetDescription()));
+            selected.SetIcon((Sprite)EditorGUILayout.ObjectField("Icon", selected.GetIcon(), typeof(Sprite), false));
+            selected.SetPickup((Pickup)EditorGUILayout.ObjectField("Pickup", selected.GetPickup(), typeof(Pickup), false));
+            selected.SetStackable(EditorGUILayout.Toggle("Stackable", selected.IsStackable()));
         }
     }
 }

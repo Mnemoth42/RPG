@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 namespace GameDevTV.Inventories
@@ -119,5 +120,85 @@ namespace GameDevTV.Inventories
             // Require by the ISerializationCallbackReceiver but we don't need
             // to do anything with it.
         }
+
+        #region InventoryEditor Additions
+
+        public Pickup GetPickup()
+        {
+            return pickup;
+        }
+
+#if UNITY_EDITOR
+        /// <summary>
+        /// Convenience method, just to call EditorUtility.SetDirty(this);  It's optional, but it saves us some
+        /// typing with so many methods to set dirty.  There is debate over the need to use SetDirty within editor
+        /// code.  Extensive testing of this Editor in three different projects has shown me that without calling
+        /// EditorUtility.SetDirty(this) in SerializedObject setters you can experience data loss.  Saving is very
+        /// inconsistent.
+        /// </summary>
+        public void Dirty()
+        {
+            EditorUtility.SetDirty(this);
+        }
+        /// <summary>
+        /// Another convenience method.  Simply calls Undo.RecordObject(this, message).  
+        /// </summary>
+        /// <param name="message"></param>
+        public void SetUndo(string message)
+        {
+            Undo.RecordObject(this, message);
+        }
+
+        public void SetDisplayName(string newDisplayName)
+        {
+            if (newDisplayName == displayName) return;
+            SetUndo("Change Display Name");
+            displayName = newDisplayName;
+            Dirty();
+        }
+
+        public void SetDescription(string newDescription)
+        {
+            if (newDescription == description) return;
+            SetUndo("Change Description");
+            description = newDescription;
+            Dirty();
+        }
+
+        public void SetIcon(Sprite newIcon)
+        {
+            if (icon == newIcon) return;
+            SetUndo("Change Icon");
+            icon = newIcon;
+            Dirty();
+        }
+
+        public void SetPickup(Pickup newPickup)
+        {
+            if (pickup == newPickup) return;
+            SetUndo("Change Pickup");
+            pickup = newPickup;
+            Dirty();
+        }
+
+        public void SetItemID(string newItemID)
+        {
+            if (itemID == newItemID) return;
+            SetUndo("Change ItemID");
+            itemID = newItemID;
+            Dirty();
+        }
+
+        public void SetStackable(bool newStackable)
+        {
+            if (stackable == newStackable) return;
+            SetUndo(stackable?"Set Not Stackable": "Set Stackable");
+            stackable = newStackable;
+            Dirty();
+        }
+
+#endif
+
+#endregion
     }
 }
