@@ -12,6 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2591c982fc81e940845bedeabeb30af, type: 3}
   m_Name: Unarmed
   m_EditorClassIdentifier: 
+  itemID: a66a5f46-3d06-4e0e-80bb-1145dc51d7c5
+  displayName: Fists
+  description: You choose to fight like a man, the way God intended.  Probably not
+    wise when that guard has a big shiny sword, but it's your call.
+  icon: {fileID: 0}
+  pickup: {fileID: 0}
+  stackable: 0
+  allowedEquipLocation: 5
   animatorOverride: {fileID: 0}
   equippedPrefab: {fileID: 442137872338528657, guid: 8786ea0ff0548a84f927488b94467170,
     type: 3}
