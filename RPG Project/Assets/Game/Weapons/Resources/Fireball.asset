@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Fireball
   m_EditorClassIdentifier: 
   itemID: 2bb41498-0e04-482d-a7fb-d0ce934b06c0
-  displayName: Fireball
+  displayName: Fireball Spell
   description: You have to hand it to Fizban, he knows how to brew a fireball.  You
     can burn your enemies to bits with this lovely spell.
   icon: {fileID: 21300000, guid: aba0f700d91d4fc4fa8c724899ab04ab, type: 3}
@@ -22,7 +22,7 @@ MonoBehaviour:
   allowedEquipLocation: 5
   animatorOverride: {fileID: 0}
   equippedPrefab: {fileID: 0}
-  weaponDamage: 5
+  weaponDamage: 8.2
   percentageBonus: 25
   weaponRange: 18
   isRightHanded: 0

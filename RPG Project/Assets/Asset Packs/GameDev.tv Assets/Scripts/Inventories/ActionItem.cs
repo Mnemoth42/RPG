@@ -1,4 +1,4 @@
-using System;
+using UnityEditor;
 using UnityEngine;
 
 namespace GameDevTV.Inventories
@@ -10,8 +10,8 @@ namespace GameDevTV.Inventories
     /// This class should be used as a base. Subclasses must implement the `Use`
     /// method.
     /// </remarks>
-    [CreateAssetMenu(menuName = ("GameDevTV/GameDevTV.UI.InventorySystem/Action Item"))]
-    public class ActionItem : InventoryItem
+
+    public abstract class ActionItem : InventoryItem
     {
         // CONFIG DATA
         [Tooltip("Does an instance of this item get consumed every time it's used.")]
@@ -32,5 +32,45 @@ namespace GameDevTV.Inventories
         {
             return consumable;
         }
+
+        #region InventoryItemEditor Modifications
+
+        /// <summary>
+        /// Use this method to determine if the user can actually use the item at this time.  For example, a Fireball
+        /// might require thet the User have a target selected.  A healing spell may require that the user has some damage (no sense
+        /// wasting that spell if you're already 100%  Override this method and apply whatever logic you need to determine use.
+        /// </summary>
+        /// <param name="user">character wishing to use the spell.</param>
+        /// <returns></returns>
+        public virtual bool CanUse(GameObject user)
+        {
+            return true;
+        }
+
+#if UNITY_EDITOR
+
+
+        void SetIsConsumable(bool value)
+        {
+            if (consumable == value) return;
+            SetUndo(value?"Set Consumable":"Set Not Consumable");
+            consumable = value;
+            Dirty();
+        }
+
+        bool drawActionItem = true;
+        public override void DrawCustomInspector()
+        {
+            base.DrawCustomInspector();
+            drawActionItem = EditorGUILayout.Foldout(drawActionItem, "Action Item Data");
+            if (!drawActionItem) return;
+            EditorGUILayout.BeginVertical(contentStyle);
+            SetIsConsumable(EditorGUILayout.Toggle("Is Consumable", consumable));
+            EditorGUILayout.EndVertical();
+        }
+
+#endif
+        #endregion
+
     }
 }

@@ -186,8 +186,16 @@ namespace GameDevTV.Inventories
             Dirty();
         }
 
-        public void SetPickup(Pickup newPickup)
+        public void SetPickup(GameObject potentialnewPickup)
         {
+            if (!potentialnewPickup)
+            {
+                SetUndo("Set No Pickup");
+                pickup = null;
+                Dirty();
+                return;
+            }
+            if (!potentialnewPickup.TryGetComponent(out Pickup newPickup)) return;
             if (pickup == newPickup) return;
             SetUndo("Change Pickup");
             pickup = newPickup;
@@ -227,7 +235,8 @@ namespace GameDevTV.Inventories
             SetDisplayName(EditorGUILayout.TextField("Display name", GetDisplayName()));
             SetDescription(EditorGUILayout.TextField("Description", GetDescription()));
             SetIcon((Sprite)EditorGUILayout.ObjectField("Icon", GetIcon(), typeof(Sprite), false));
-            SetPickup((Pickup)EditorGUILayout.ObjectField("Pickup", pickup, typeof(Pickup), false));
+            GameObject potentialPickup = pickup ? pickup.gameObject : null;
+            SetPickup((GameObject)EditorGUILayout.ObjectField("Pickup", potentialPickup, typeof(GameObject), false));
             SetStackable(EditorGUILayout.Toggle("Stackable", IsStackable()));
             EditorGUILayout.EndVertical();
         }

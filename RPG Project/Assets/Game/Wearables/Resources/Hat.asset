@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemID: 28c6f2e6-46e9-4879-a14f-d6998c781cb7
   displayName: Hat
-  description: 
+  description: Just a boring hat.  Not to sound too negative, but it doesn't even
+    protect your head from that sword in the enemy's hand.  You're better off ducking.
   icon: {fileID: 21300000, guid: c1b61b3a91732a747a8496fc75a13fe2, type: 3}
   pickup: {fileID: 743510599615345213, guid: 0715da6d594191c43a75bbdd035e8646, type: 3}
   stackable: 1
