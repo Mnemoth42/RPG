@@ -39,7 +39,9 @@ namespace GameDevTV.Inventories
             base.DrawCustomInspector();
             drawEquipableItem = EditorGUILayout.Foldout(drawEquipableItem, "EquipableItem Data", foldoutStyle);
             if (!drawEquipableItem) return;
+            EditorGUILayout.BeginVertical(contentStyle);
             SetAllowedEquipLocation((EquipLocation)EditorGUILayout.EnumPopup(new GUIContent("Equip Location"),allowedEquipLocation,IsLocationSelectable,false));
+            EditorGUILayout.EndVertical();
         }
 
         /// <summary>

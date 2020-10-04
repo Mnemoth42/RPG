@@ -182,6 +182,7 @@ namespace RPG.Combat
             base.DrawCustomInspector();
             drawWeaponConfigData = EditorGUILayout.Foldout(drawWeaponConfigData, "WeaponConfig Data",foldoutStyle);
             if (!drawWeaponConfigData) return;
+            EditorGUILayout.BeginVertical(contentStyle);
             SetEquippedPrefab((Weapon)EditorGUILayout.ObjectField("Equipped Prefab", equippedPrefab,typeof(Object), false));
             SetWeaponDamage(EditorGUILayout.Slider("Weapon Damage", weaponDamage, 0, 100));
             SetWeaponRange(EditorGUILayout.Slider("Weapon Range", weaponRange, 1,40));
@@ -189,6 +190,7 @@ namespace RPG.Combat
             SetIsRightHanded(EditorGUILayout.Toggle("Is Right Handed", isRightHanded));
             SetAnimatorOverride((AnimatorOverrideController)EditorGUILayout.ObjectField("Animator Override", animatorOverride, typeof(AnimatorOverrideController), false));
             SetProjectile((Projectile)EditorGUILayout.ObjectField("Projectile", projectile, typeof(Projectile), false));
+            EditorGUILayout.EndVertical();
         }
 
 #endif

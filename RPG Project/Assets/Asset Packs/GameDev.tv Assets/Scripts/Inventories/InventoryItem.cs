@@ -213,19 +213,23 @@ namespace GameDevTV.Inventories
 
 
         bool drawInventoryItem = true;
-        public GUIStyle foldoutStyle;
+        [NonSerialized] protected GUIStyle foldoutStyle;
+        [NonSerialized] protected GUIStyle contentStyle;
         public virtual void DrawCustomInspector()
         {
-            foldoutStyle = new GUIStyle(EditorStyles.foldout);
-            foldoutStyle.fontStyle = FontStyle.Bold;
+            contentStyle = new GUIStyle {padding = new RectOffset(15, 15, 0, 0)};
+
+            foldoutStyle = new GUIStyle(EditorStyles.foldout) {fontStyle = FontStyle.Bold};
             drawInventoryItem = EditorGUILayout.Foldout(drawInventoryItem, "InventoryItem Data", foldoutStyle);
             if (!drawInventoryItem) return;
+            EditorGUILayout.BeginVertical(contentStyle);
             SetItemID(EditorGUILayout.TextField("ItemID (clear to reset", GetItemID()));
             SetDisplayName(EditorGUILayout.TextField("Display name", GetDisplayName()));
             SetDescription(EditorGUILayout.TextField("Description", GetDescription()));
             SetIcon((Sprite)EditorGUILayout.ObjectField("Icon", GetIcon(), typeof(Sprite), false));
             SetPickup((Pickup)EditorGUILayout.ObjectField("Pickup", pickup, typeof(Pickup), false));
             SetStackable(EditorGUILayout.Toggle("Stackable", IsStackable()));
+            EditorGUILayout.EndVertical();
         }
 
 #endif

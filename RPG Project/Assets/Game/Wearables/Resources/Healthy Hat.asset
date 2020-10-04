@@ -22,4 +22,10 @@ MonoBehaviour:
   additiveModifiers:
   - stat: 0
     value: 20
-  percentageModifiers: []
+  - stat: 3
+    value: 0
+  percentageModifiers:
+  - stat: 3
+    value: 1
+  - stat: 0
+    value: 20
