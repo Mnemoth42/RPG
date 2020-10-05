@@ -21,12 +21,8 @@ MonoBehaviour:
   stackable: 0
   allowedEquipLocation: 0
   additiveModifiers:
-  - stat: 0
-    value: 20
   - stat: 3
-    value: 0
+    value: -1
   percentageModifiers:
-  - stat: 3
-    value: 1
   - stat: 0
-    value: 20
+    value: 10

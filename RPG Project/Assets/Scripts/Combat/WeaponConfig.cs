@@ -112,7 +112,30 @@ namespace RPG.Combat
         }
 
         #region InventoryItemEditor Additions
+
+        public override string GetDescription()
+        {
+            string result = projectile ? "Ranged Weapon" : "Melee Weapon";
+            result += $"\n\n{GetRawDescription()}\n";
+            result += $"\nRange {weaponRange} meters";
+            result += $"\nBase Damage {weaponDamage} points";
+            if ((int)percentageBonus != 0)
+            {
+                string bonus = percentageBonus > 0 ? "<color=#8888ff>bonus</color>" : "<color=#ff8888>penalty</color>";
+                result += $"\n{(int) percentageBonus} percent {bonus} to attack.";
+            }
+            return result;
+        }
+
 #if UNITY_EDITOR
+
+        void OnValidate()
+        {
+            if (GetAllowedEquipLocation() != EquipLocation.Weapon)
+            {
+                SetAllowedEquipLocation(EquipLocation.Weapon);
+            }
+        }
 
         void SetWeaponRange(float newWeaponRange)
         {

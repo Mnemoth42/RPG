@@ -49,7 +49,40 @@ namespace RPG.Inventories
         }
 
         #region InventoryItemEditor Changes
+
+        string FormatAttribute(Modifier mod, bool percent)
+        {
+            if ((int)mod.value == 0.0f) return "";
+            string percentString = percent ? "percent" : "point";
+            string bonus = mod.value > 0.0f ? "<color=#8888ff>bonus</color>" : "<color=#ff8888>penalty</color>";
+            return $"{Mathf.Abs((int) mod.value)} {percentString} {bonus} to {mod.stat}\n";
+        }
+
+        public override string GetDescription()
+        {
+            string result =  GetRawDescription()+"\n";
+            foreach (Modifier mod in additiveModifiers)
+            {
+                result += FormatAttribute(mod, false);
+            }
+
+            foreach (Modifier mod in percentageModifiers)
+            {
+                result += FormatAttribute(mod, true);
+            }
+            return result;
+        }
+
 #if UNITY_EDITOR
+
+        void OnValidate()
+        {
+            if (GetAllowedEquipLocation() == EquipLocation.Weapon)
+            {
+                SetAllowedEquipLocation(EquipLocation.Helmet);
+            }
+        }
+
         void AddModifier(List<Modifier> modifierList)
         {
             SetUndo("Add Modifier");

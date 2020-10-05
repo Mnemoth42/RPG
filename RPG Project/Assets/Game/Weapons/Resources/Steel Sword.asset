@@ -10,22 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f2591c982fc81e940845bedeabeb30af, type: 3}
-  m_Name: Sword
+  m_Name: Steel Sword
   m_EditorClassIdentifier: 
   itemID: 77ad666c-513c-4c88-87b2-c8594bcd5a89
-  displayName: Rusty Iron Sword
-  description: Forged from scraps of iron discarded by kobold miners, this sword
-    is guaranteed to be effective against your enemies for a lifetime, or one strike,
-    whichever comes first.
-  icon: {fileID: 21300000, guid: d19901b0ee3c38743a7d383bd484b0b5, type: 3}
+  displayName: Steel sword
+  description: Made from the finest steel goblin slaves are capable of making, this
+    sword will do some damage to your enemies.  Guaranteed not to rust as long as
+    you never get it wet.
+  icon: {fileID: 21300000, guid: fe9633a9f1086664190b5b9ea0f672d4, type: 3}
   pickup: {fileID: 5791415848479646380, guid: fdfb68bd34d88af4fbb8a679645d8598, type: 3}
   stackable: 0
   allowedEquipLocation: 5
   animatorOverride: {fileID: 22100000, guid: 6abe8133a41100b4695842c4b61fdb80, type: 2}
   equippedPrefab: {fileID: 442137872338528657, guid: c77f288c2f5ccac44bbf4e7d1eb1dee0,
     type: 3}
-  weaponDamage: 8
-  percentageBonus: 1
+  weaponDamage: 12
+  percentageBonus: 5
   weaponRange: 2
   isRightHanded: 1
   projectile: {fileID: 0}

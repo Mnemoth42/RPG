@@ -25,7 +25,7 @@ namespace GameDevTV.Inventories
         #region InventoryItemEditor Additions
 
 #if UNITY_EDITOR
-        public void SetAllowedEquipLocation(EquipLocation newLocation)
+        protected void SetAllowedEquipLocation(EquipLocation newLocation)
         {
             if (allowedEquipLocation == newLocation) return;
             SetUndo("Change Equip Location");

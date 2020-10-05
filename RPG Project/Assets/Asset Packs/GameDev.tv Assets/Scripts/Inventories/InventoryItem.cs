@@ -100,7 +100,20 @@ namespace GameDevTV.Inventories
             return displayName;
         }
 
-        public string GetDescription()
+        /// <summary>
+        /// Override this function to set a custom description.  This is typically to add stats or other important information to the tooltip.
+        /// </summary>
+        /// <returns></returns>
+        public virtual string GetDescription()
+        {
+            return description;
+        }
+        /// <summary>
+        /// Simply returns the description with no modifiers, just what is typed in the description entry.  Useful for constructing custom
+        /// descriptions to return in GetDescription() overrides.
+        /// </summary>
+        /// <returns></returns>
+        public string GetRawDescription()
         {
             return description;
         }
@@ -137,7 +150,7 @@ namespace GameDevTV.Inventories
         /// EditorUtility.SetDirty(this) in SerializedObject setters you can experience data loss.  Saving is very
         /// inconsistent.
         /// </summary>
-        public void Dirty()
+        protected void Dirty()
         {
             EditorUtility.SetDirty(this);
         }
@@ -145,7 +158,7 @@ namespace GameDevTV.Inventories
         /// Another convenience method.  Simply calls Undo.RecordObject(this, message).  
         /// </summary>
         /// <param name="message"></param>
-        public void SetUndo(string message)
+        protected void SetUndo(string message)
         {
             Undo.RecordObject(this, message);
         }
@@ -157,12 +170,12 @@ namespace GameDevTV.Inventories
         /// <param name="value1"></param>
         /// <param name="value2"></param>
         /// <returns></returns>
-        public bool FloatEquals(float value1, float value2)
+        protected bool FloatEquals(float value1, float value2)
         {
             return Math.Abs(value1 - value2) < .001f;
         }
 
-        public void SetDisplayName(string newDisplayName)
+        void SetDisplayName(string newDisplayName)
         {
             if (newDisplayName == displayName) return;
             SetUndo("Change Display Name");
@@ -170,7 +183,7 @@ namespace GameDevTV.Inventories
             Dirty();
         }
 
-        public void SetDescription(string newDescription)
+        void SetDescription(string newDescription)
         {
             if (newDescription == description) return;
             SetUndo("Change Description");
@@ -178,7 +191,7 @@ namespace GameDevTV.Inventories
             Dirty();
         }
 
-        public void SetIcon(Sprite newIcon)
+        void SetIcon(Sprite newIcon)
         {
             if (icon == newIcon) return;
             SetUndo("Change Icon");
@@ -186,7 +199,7 @@ namespace GameDevTV.Inventories
             Dirty();
         }
 
-        public void SetPickup(GameObject potentialnewPickup)
+        void SetPickup(GameObject potentialnewPickup)
         {
             if (!potentialnewPickup)
             {
@@ -202,7 +215,7 @@ namespace GameDevTV.Inventories
             Dirty();
         }
 
-        public void SetItemID(string newItemID)
+        void SetItemID(string newItemID)
         {
             if (itemID == newItemID) return;
             SetUndo("Change ItemID");
@@ -210,7 +223,7 @@ namespace GameDevTV.Inventories
             Dirty();
         }
 
-        public void SetStackable(bool newStackable)
+        void SetStackable(bool newStackable)
         {
             if (stackable == newStackable) return;
             SetUndo(stackable?"Set Not Stackable": "Set Stackable");
@@ -226,18 +239,19 @@ namespace GameDevTV.Inventories
         public virtual void DrawCustomInspector()
         {
             contentStyle = new GUIStyle {padding = new RectOffset(15, 15, 0, 0)};
-
+            GUIStyle expandedAreaStyle = new GUIStyle(EditorStyles.textArea) { wordWrap = true };
             foldoutStyle = new GUIStyle(EditorStyles.foldout) {fontStyle = FontStyle.Bold};
             drawInventoryItem = EditorGUILayout.Foldout(drawInventoryItem, "InventoryItem Data", foldoutStyle);
             if (!drawInventoryItem) return;
             EditorGUILayout.BeginVertical(contentStyle);
-            SetItemID(EditorGUILayout.TextField("ItemID (clear to reset", GetItemID()));
-            SetDisplayName(EditorGUILayout.TextField("Display name", GetDisplayName()));
-            SetDescription(EditorGUILayout.TextField("Description", GetDescription()));
-            SetIcon((Sprite)EditorGUILayout.ObjectField("Icon", GetIcon(), typeof(Sprite), false));
+            SetItemID(EditorGUILayout.TextField("ItemID (clear to reset", itemID));
+            SetDisplayName(EditorGUILayout.TextField("Display name", displayName));
+            EditorGUILayout.LabelField("Description");
+            SetDescription(EditorGUILayout.TextArea(description, expandedAreaStyle));
+            SetIcon((Sprite)EditorGUILayout.ObjectField("Icon", icon, typeof(Sprite), false));
             GameObject potentialPickup = pickup ? pickup.gameObject : null;
             SetPickup((GameObject)EditorGUILayout.ObjectField("Pickup", potentialPickup, typeof(GameObject), false));
-            SetStackable(EditorGUILayout.Toggle("Stackable", IsStackable()));
+            SetStackable(EditorGUILayout.Toggle("Stackable", stackable));
             EditorGUILayout.EndVertical();
         }
 

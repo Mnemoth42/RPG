@@ -15,7 +15,7 @@ namespace RPG.Actions
         {
             if (!user.TryGetComponent(out Health health))
                 return false;
-            if (health.IsDead() || health.GetPercentage() >= 1.0f) return false;
+            if (health.IsDead() || health.GetPercentage() >= 100f) return false;
             return true;
         }
 
@@ -25,6 +25,16 @@ namespace RPG.Actions
             if (health.IsDead()) return;
             health.Heal(isPercentage ? health.GetMaxHealthPoints() * amountToHeal / 100.0f : amountToHeal);
         }
+
+        public override string GetDescription()
+        {
+            string result = GetRawDescription()+"\n";
+            string spell = isConsumable() ? "potion" : "spell";
+            string percent = isPercentage ? "percent of your Max Health" : "Health Points.";
+            result += $"This {spell} will restore {(int)amountToHeal} {percent}";
+            return result;
+        }
+
 
 #if UNITY_EDITOR
         void SetAmountToHeal(float value)

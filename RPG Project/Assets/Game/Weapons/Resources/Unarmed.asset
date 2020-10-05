@@ -15,7 +15,8 @@ MonoBehaviour:
   itemID: a66a5f46-3d06-4e0e-80bb-1145dc51d7c5
   displayName: Fists
   description: You choose to fight like a man, the way God intended.  Probably not
-    wise when that guard has a big shiny sword, but it's your call.
+    wise when that guard has a big shiny sword, but it's your call.  Try not to bleed
+    on the enemy too much.
   icon: {fileID: 0}
   pickup: {fileID: 0}
   stackable: 0
